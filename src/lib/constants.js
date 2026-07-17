@@ -1,9 +1,9 @@
 export const SITE = {
-  name: "BuildRight",
+  name: "K2 CONTRACTORS",
   tagline: "Repair. Remodel. Add on.",
-  phone: "+880 1700-000000",
-  email: "hello@buildright.example",
-  address: "House 12, Road 4, Kafrul, Dhaka",
+  phone: "(555) 123-4567",
+  email: "info@k2contractors.com",
+  address: "123 Contractor Ave, Suite 100 Builders City, BC 12345",
 };
 
 export const TIME_SLOTS = [
