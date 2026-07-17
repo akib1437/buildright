@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --paper: #f4f5f2;
+  --ink: #101c22;
+  --ink-soft: #3d4e57;
+  --amber: #f2a71b;
+  --amber-deep: #d18e0a;
+  --blueprint: #2e5e8c;
+  --line: #dce0da;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- signature: architectural dimension line ---------- */
+.dim-line {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--blueprint);
+}
+.dim-line::before,
+.dim-line::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  position: relative;
+}
+.dim-line::before { box-shadow: -1px 0 0 currentColor, inset 1px 0 0 currentColor; }
+.dim-line--tick::before,
+.dim-line--tick::after {
+  background:
+    linear-gradient(currentColor, currentColor) left center / 1px 9px no-repeat,
+    linear-gradient(currentColor, currentColor) right center / 1px 9px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat;
+  height: 9px;
+}
+.dim-line--light { color: rgba(244, 245, 242, 0.65); }
+.dim-line--amber { color: var(--amber); }
+
+/* ---------- blueprint grid backdrop for dark sections ---------- */
+.blueprint-grid {
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(rgba(46, 94, 140, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 94, 140, 0.22) 1px, transparent 1px),
+    linear-gradient(rgba(46, 94, 140, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46, 94, 140, 0.1) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+}
+
+/* ---------- primitives ---------- */
+.btn {
+  @apply inline-flex items-center justify-center gap-2 font-semibold text-sm tracking-wide px-5 py-3 transition-colors select-none;
+}
+.btn-amber {
+  @apply btn bg-amber text-ink hover:bg-amber-deep;
+  box-shadow: 3px 3px 0 0 var(--ink);
+}
+.btn-amber:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 0 var(--ink); }
+.btn-ink { @apply btn bg-ink text-paper hover:bg-ink-soft; }
+.btn-ghost { @apply btn border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-paper; }
+.btn-ghost-light { @apply btn border border-paper/40 text-paper hover:bg-paper hover:text-ink; }
+
+.field {
+  @apply w-full bg-white border border-line px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-soft/50 outline-none;
+}
+.field:focus { border-color: var(--blueprint); box-shadow: 0 0 0 3px rgba(46, 94, 140, 0.15); }
+.field-label {
+  @apply block font-mono text-[0.68rem] uppercase tracking-[0.18em] text-ink-soft mb-1.5;
+}
+
+.card { @apply bg-white border border-line; }
+
+.badge {
+  @apply inline-flex items-center gap-1.5 font-mono text-[0.66rem] uppercase tracking-[0.14em] px-2.5 py-1 border;
+}
+.badge-pending   { @apply badge border-amber-deep/40 bg-amber/15 text-amber-deep; }
+.badge-confirmed { @apply badge border-blueprint/40 bg-blueprint/10 text-blueprint; }
+.badge-completed { @apply badge border-emerald-700/40 bg-emerald-600/10 text-emerald-700; }
+.badge-cancelled { @apply badge border-ink/20 bg-ink/5 text-ink-soft; }
+.badge-declined  { @apply badge border-red-700/40 bg-red-600/10 text-red-700; }
+
+/* visible keyboard focus */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--blueprint);
+  outline-offset: 2px;
+}
+
+/* subtle rise-in on scroll targets */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.6s ease both; }
