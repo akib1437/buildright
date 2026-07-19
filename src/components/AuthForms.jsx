@@ -23,8 +23,18 @@ export function LoginForm({ next }) {
     <form action={action} className="space-y-4">
       <input type="hidden" name="next" value={next || ""} />
       <div>
-        <label className="field-label" htmlFor="email">Email</label>
-        <input id="email" name="email" type="email" className="field" required autoComplete="email" />
+        <label className="field-label" htmlFor="identifier">Email or phone number</label>
+        <input
+          id="identifier"
+          name="identifier"
+          type="text"
+          className="field"
+          required
+          autoComplete="username"
+          autoCapitalize="none"
+          spellCheck={false}
+          placeholder="name@example.com or (314) 555-0123"
+        />
       </div>
       <div>
         <label className="field-label" htmlFor="password">Password</label>
@@ -49,6 +59,19 @@ export function SignupForm() {
         <input id="email" name="email" type="email" className="field" required autoComplete="email" />
       </div>
       <div>
+        <label className="field-label" htmlFor="phone">Mobile phone</label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          className="field"
+          required
+          autoComplete="tel"
+          inputMode="tel"
+          placeholder="(314) 555-0123"
+        />
+      </div>
+      <div>
         <label className="field-label" htmlFor="password">Password (6+ characters)</label>
         <input id="password" name="password" type="password" className="field" required minLength={6} autoComplete="new-password" />
       </div>
@@ -64,15 +87,28 @@ export function AdminSignupForm() {
     <form action={action} className="space-y-4">
       <div>
         <label className="field-label" htmlFor="full_name">Full name</label>
-        <input id="full_name" name="full_name" className="field" required />
+        <input id="full_name" name="full_name" className="field" required autoComplete="name" />
       </div>
       <div>
         <label className="field-label" htmlFor="email">Work email</label>
-        <input id="email" name="email" type="email" className="field" required />
+        <input id="email" name="email" type="email" className="field" required autoComplete="email" />
+      </div>
+      <div>
+        <label className="field-label" htmlFor="phone">Mobile phone</label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          className="field"
+          required
+          autoComplete="tel"
+          inputMode="tel"
+          placeholder="(314) 555-0123"
+        />
       </div>
       <div>
         <label className="field-label" htmlFor="password">Password (6+ characters)</label>
-        <input id="password" name="password" type="password" className="field" required minLength={6} />
+        <input id="password" name="password" type="password" className="field" required minLength={6} autoComplete="new-password" />
       </div>
       <div>
         <label className="field-label" htmlFor="admin_code">Admin signup code</label>
