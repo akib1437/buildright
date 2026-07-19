@@ -12,34 +12,6 @@ create table if not exists public.profiles (
   created_at timestamptz not null default now()
 );
 
--- Normalize US phone numbers to E.164. International numbers must include
--- a leading + and country code.
-create or replace function public.normalize_login_phone(input_phone text)
-returns text
-language plpgsql
-immutable
-as $$
-declare
-  raw text := btrim(coalesce(input_phone, ''));
-  digits text := regexp_replace(btrim(coalesce(input_phone, '')), '[^0-9]', '', 'g');
-begin
-  if raw like '+%' and char_length(digits) between 8 and 15 then
-    return '+' || digits;
-  end if;
-  if char_length(digits) = 10 then
-    return '+1' || digits;
-  end if;
-  if char_length(digits) = 11 and left(digits, 1) = '1' then
-    return '+' || digits;
-  end if;
-  return '';
-end;
-$$;
-
-create unique index if not exists profiles_phone_unique_idx
-  on public.profiles (phone)
-  where phone ~ '^\+[1-9][0-9]{7,14}$';
-
 -- Auto-create a profile row when a user signs up
 create or replace function public.handle_new_user()
 returns trigger
@@ -47,12 +19,8 @@ language plpgsql
 security definer set search_path = public
 as $$
 begin
-  insert into public.profiles (id, full_name, phone)
-  values (
-    new.id,
-    coalesce(new.raw_user_meta_data ->> 'full_name', ''),
-    public.normalize_login_phone(new.raw_user_meta_data ->> 'phone')
-  );
+  insert into public.profiles (id, full_name)
+  values (new.id, coalesce(new.raw_user_meta_data ->> 'full_name', ''));
   return new;
 end;
 $$;
@@ -96,8 +64,8 @@ create table if not exists public.bookings (
   booking_date date not null,
   time_slot text not null,
   property_type text not null default '',
-  option_1 text not null default '',
-  option_2 text not null default '',
+  option_1 text not null default '',   -- service-specific (repair type / room / addition type)
+  option_2 text not null default '',   -- service-specific (urgency / budget / sqft)
   address text not null default '',
   phone text not null default '',
   details text not null default '',
@@ -148,7 +116,7 @@ create policy "profiles: read own or admin" on public.profiles
 drop policy if exists "profiles: update own" on public.profiles;
 create policy "profiles: update own" on public.profiles
   for update using (auth.uid() = id)
-  with check (auth.uid() = id and role = 'customer');
+  with check (auth.uid() = id and role = 'customer'); -- can't self-promote
 
 -- services (public catalog; admin writes)
 drop policy if exists "services: public read" on public.services;
