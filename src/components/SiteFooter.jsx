@@ -11,8 +11,8 @@ export default function SiteFooter() {
           <span>site plan · {SITE.name.toLowerCase()}</span>
         </div>
 
-        <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr_1.2fr]">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:gap-12 md:grid-cols-[2fr_1fr_1fr_1.2fr]">
+          <div className="col-span-2 md:col-span-1 flex flex-col sm:flex-row sm:items-center gap-6">
             <img
               src={SITE.logo}
               alt={`${SITE.name} logo`}
@@ -53,7 +53,7 @@ export default function SiteFooter() {
             </ul>
           </div>
 
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-amber mb-3">Reach us</p>
             <ul className="space-y-2 text-paper/70 text-sm">
               <li><a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="hover:text-amber transition-colors">{SITE.phone}</a></li>
