@@ -66,11 +66,11 @@ export default async function HomePage() {
                 <span>est. 2011 · {LOCALE.region}</span>
               </div>
               <h1 className="hero-headline text-5xl sm:text-7xl md:text-8xl">
-                We build
+                We 
                 <br />
-                <span className="text-amber">what you'd</span>
+                <span className="text-amber">Make it</span>
                 <br />
-                <span className="stroke">brag about.</span>
+                <span className="stroke">Happen'</span>
               </h1>
               <p className="mt-8 max-w-xl text-paper/75 text-lg leading-relaxed">
                 Repairs finished in an afternoon. Kitchens and baths rebuilt to the millimetre.
