@@ -14,9 +14,11 @@ export default async function SiteHeader({ transparent = false }) {
     <HeaderScroll transparent={transparent}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
-          <span aria-hidden className="grid place-items-center w-8 h-8 bg-amber text-ink font-display font-black text-lg leading-none">
-            {SITE.name.charAt(0)}
-          </span>
+          <img
+            src={SITE.logo}
+            alt={`${SITE.name} logo`}
+            className="w-9 h-9 object-contain shrink-0"
+          />
           <span className="font-display font-extrabold tracking-tight text-lg">
             {SITE.name}
           </span>

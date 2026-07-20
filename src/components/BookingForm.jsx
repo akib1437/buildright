@@ -192,7 +192,7 @@ export default function BookingForm({ service, formConfig }) {
         <div>
           <label className="field-label" htmlFor="phone">Phone for day-of contact</label>
           <input id="phone" name="phone" className="field" required maxLength={40}
-                 placeholder="(555) 123-4567" />
+                 placeholder="(314) 623-3958" />
         </div>
 
         <div>

@@ -11,7 +11,12 @@ export default function SiteFooter() {
           <span>site plan · {SITE.name.toLowerCase()}</span>
         </div>
 
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="flex items-center gap-6">
+          <img
+            src={SITE.logo}
+            alt={`${SITE.name} logo`}
+            className="w-48 h-48 object-contain shrink-0"
+          />
           <div>
             <p className="font-display font-black text-3xl tracking-tight">{SITE.name}</p>
             <p className="mt-3 text-paper/60 text-sm max-w-xs leading-relaxed">
@@ -51,6 +56,11 @@ export default function SiteFooter() {
             <ul className="space-y-2 text-paper/70 text-sm">
               <li><a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="hover:text-amber transition-colors">{SITE.phone}</a></li>
               <li><a href={`mailto:${SITE.email}`} className="hover:text-amber transition-colors lowercase">{SITE.email}</a></li>
+              <li>
+                <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-amber transition-colors">
+                  @{SITE.instagram}
+                </a>
+              </li>
               <li className="text-paper/50 leading-relaxed">{SITE.address}</li>
               <li className="pt-3 mt-3 border-t border-paper/10 text-paper/50 space-y-1">
                 {HOURS.map((h) => (

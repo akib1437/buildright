@@ -14,7 +14,7 @@ import Img from "@/components/Img";
 import { createClient } from "@/lib/supabase/server";
 import { serviceModel } from "@/models/serviceModel";
 import { portfolioModel } from "@/models/portfolioModel";
-import { PORTFOLIO_CATEGORIES, SITE } from "@/lib/constants";
+import { PORTFOLIO_CATEGORIES, SITE, ALL_SERVICES } from "@/lib/constants";
 import { LOCALE } from "@/lib/locale";
 
 export const revalidate = 0;
@@ -81,6 +81,20 @@ export default async function HomePage() {
                 <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="btn-ghost-light">Call {SITE.phone}</a>
               </div>
             </div>
+            {/* QR code — right side of hero, desktop only */}
+            <div className="absolute right-6 lg:right-12 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3">
+              <div className="bg-ink/10 backdrop-blur-sm p-4 rounded-sm">
+                <img
+                  src={SITE.qr}
+                  alt="Scan to contact K2 Contractors"
+                  className="w-80 h-80 object-contain"
+                />
+              </div>
+              <span className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-paper/70">
+                scan · save our contact
+              </span>
+            </div>
+
             <div className="absolute right-6 bottom-8 hidden md:flex items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-paper/60">
               <span className="bob">↓</span>
               <span>scroll · see recent work</span>
@@ -160,6 +174,28 @@ export default async function HomePage() {
               );
             })}
           </div>
+
+          {/* Full list of everything K2 handles — no job too big or small */}
+          <Reveal>
+            <div className="mt-20">
+              <div className="dim-line dim-line--tick max-w-sm mx-auto">
+                <span>everything we handle · residential &amp; commercial</span>
+              </div>
+              <p className="mt-5 text-center text-ink-soft text-sm max-w-md mx-auto">
+                No job too big or small. Free estimates on every service below.
+              </p>
+              <ul className="mt-8 flex flex-wrap justify-center gap-2.5">
+                {ALL_SERVICES.map((service) => (
+                  <li
+                    key={service}
+                    className="font-mono text-[0.68rem] uppercase tracking-[0.14em] border border-line px-3.5 py-2 text-ink-soft hover:border-amber hover:text-ink transition-colors"
+                  >
+                    {service}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </section>
 
         {/* ============================================================
@@ -284,6 +320,12 @@ export default async function HomePage() {
                   <p className="flex items-center gap-3">
                     <span className="text-amber">▲</span>
                     <a href={`mailto:${SITE.email}`} className="hover:text-ink lowercase">{SITE.email}</a>
+                  </p>
+                  <p className="flex items-center gap-3">
+                    <span className="text-amber">▲</span>
+                    <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer" className="hover:text-ink">
+                      @{SITE.instagram}
+                    </a>
                   </p>
                   <p className="flex items-start gap-3 normal-case tracking-normal">
                     <span className="text-amber mt-1">▲</span>

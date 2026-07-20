@@ -181,13 +181,13 @@ create policy "messages: admin delete" on public.messages
 insert into public.services (slug, name, tagline, description, price_range, duration, sort_order)
 values
   ('repair',  'Schedule a Repair', 'Fast fixes, done right',
-   'Plumbing, electrical, carpentry and appliance repairs handled by licensed technicians. Same-week visits for most jobs.',
+   'Electrical, plumbing, carpentry, flooring, painting, drywall, windows & doors, AC/HVAC, alarms/CCTV, furniture assembly and handyman services. Same-week visits for most jobs.',
    '$90 – $600', '1 – 4 hours', 1),
   ('remodel', 'Remodel a Space', 'Reimagine a room',
-   'Full kitchen, bathroom and basement remodels — design, demolition, build and finish under one contract.',
+   'Full kitchen, bathroom and finished-basement remodels plus tile, brick and concrete work — design, demolition, build and finish under one contract.',
    '$8,000 – $60,000', '2 – 8 weeks', 2),
   ('addition','Plan an Addition', 'Grow your home',
-   'Room additions, second floors, garages and decks. We handle drawings, permits and construction end to end.',
+   'Room additions, second floors, garages, decks, fencing, ponds, landscaping and sprinklers. We handle drawings, permits and construction end to end.',
    '$25,000 – $180,000+', '6 – 20 weeks', 3)
 on conflict (slug) do nothing;
 

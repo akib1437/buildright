@@ -7,10 +7,38 @@
 export const SITE = {
   name: "K2 Contractors",
   tagline: "Precision handyman & remodeling services",
-  phone: "(555) 123-4567",                                       // TODO: replace with real number
-  email: "info@k2contractors.com",
-  address: "123 Contractor Ave, Suite 100, Builders City, BC 12345", // TODO: replace with real address
+  logo: "/assets/K2_logo.png",   // drop your logo file at public/assets/K2_logo.png — header & footer pick it up automatically
+  qr: "/assets/K2_Qr.png",       // QR code shown on the hero banner — file lives at public/assets/K2_Qr.png
+  phone: "(314) 623-3958",
+  email: "yourstlcontractor@gmail.com",
+  instagram: "k2contractors",
+  instagramUrl: "https://instagram.com/k2contractors",
+  address: "St. Louis, MO — Residential & Commercial", // TODO: replace with full street address if you want it shown
 };
+
+// Full list of services offered (from the K2 flyer).
+// Shown as a capabilities grid on the homepage services section.
+export const ALL_SERVICES = [
+  "Electrical",
+  "Plumbing",
+  "Kitchen Remodeling",
+  "Bathroom Remodeling",
+  "Finished Basements",
+  "Tiles / Brick",
+  "Concrete",
+  "Carpentry",
+  "Flooring",
+  "Painting",
+  "Drywall",
+  "Windows / Doors",
+  "Landscaping",
+  "Fencing / Ponds",
+  "Decking / Sprinklers",
+  "AC / HVAC",
+  "Furniture Assembly",
+  "Alarms / CCTV",
+  "Handyman Services",
+];
 
 // Booking window: hourly slots between these times. Change to match hours.
 // (Reference lists Mon–Fri 8am–6pm, Sat 9am–2pm — we use one shared window.)
@@ -32,15 +60,15 @@ export const BOOKING_STATUSES = ["pending", "confirmed", "completed", "cancelled
 // Service-specific form options. option_1 / option_2 map to booking columns.
 export const SERVICE_FORMS = {
   repair: {
-    option1: { label: "Type of repair", choices: ["Plumbing", "Electrical", "Carpentry", "Appliance", "Roof / exterior", "Other"] },
+    option1: { label: "Type of repair", choices: ["Electrical", "Plumbing", "Carpentry", "Flooring", "Painting", "Drywall", "Windows / Doors", "AC / HVAC", "Alarms / CCTV", "Furniture assembly", "Handyman / other"] },
     option2: { label: "Urgency", choices: ["Emergency (24h)", "This week", "Flexible"] },
   },
   remodel: {
-    option1: { label: "Space to remodel", choices: ["Kitchen", "Bathroom", "Basement", "Living area", "Whole home"] },
+    option1: { label: "Space to remodel", choices: ["Kitchen", "Bathroom", "Finished basement", "Tiles / Brick", "Concrete", "Living area", "Whole home"] },
     option2: { label: "Budget range", choices: ["Under $10k", "$10k - $25k", "$25k - $60k", "$60k+"] },
   },
   addition: {
-    option1: { label: "Type of addition", choices: ["Extra room", "Second floor", "Garage", "Deck / patio", "In-law suite"] },
+    option1: { label: "Type of addition", choices: ["Extra room", "Second floor", "Garage", "Deck / patio", "Fencing / Ponds", "Landscaping / Sprinklers", "In-law suite"] },
     option2: { label: "Approximate size", choices: ["Under 200 sq ft", "200 - 500 sq ft", "500 - 1000 sq ft", "1000+ sq ft"] },
   },
 };
