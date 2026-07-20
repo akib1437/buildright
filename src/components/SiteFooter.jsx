@@ -11,14 +11,15 @@ export default function SiteFooter() {
           <span>site plan · {SITE.name.toLowerCase()}</span>
         </div>
 
-        <div className="flex items-center gap-6">
-          <img
-            src={SITE.logo}
-            alt={`${SITE.name} logo`}
-            className="w-48 h-48 object-contain shrink-0"
-          />
-          <div>
-            <p className="font-display font-black text-3xl tracking-tight">{SITE.name}</p>
+        <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr_1.2fr]">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+            <img
+              src={SITE.logo}
+              alt={`${SITE.name} logo`}
+              className="w-32 h-32 md:w-44 md:h-44 object-contain shrink-0"
+            />
+            <div>
+              <p className="font-display font-black text-3xl tracking-tight">{SITE.name}</p>
             <p className="mt-3 text-paper/60 text-sm max-w-xs leading-relaxed">
               Licensed, bonded and insured. Repairs, remodels and additions built to code
               and built to last.
@@ -28,6 +29,7 @@ export default function SiteFooter() {
               <a href={`tel:${SITE.phone.replace(/\s/g, "")}`} className="btn-ghost-light !py-2 !px-4 text-xs">
                 Call now
               </a>
+              </div>
             </div>
           </div>
 

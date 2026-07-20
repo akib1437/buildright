@@ -4,11 +4,23 @@ import { profileModel } from "@/models/profileModel";
 import { signOut } from "@/controllers/authController";
 import { SITE } from "@/lib/constants";
 import HeaderScroll from "@/components/HeaderScroll";
+import MobileNav from "@/components/MobileNav";
 
 export default async function SiteHeader({ transparent = false }) {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const profile = user ? await profileModel.get(supabase, user.id) : null;
+
+  const mobileLinks = [
+    { href: "/#services", label: "Services" },
+    { href: "/portfolio", label: "Portfolio" },
+    { href: "/#process", label: "Process" },
+    { href: "/#reviews", label: "Reviews" },
+    { href: "/#contact", label: "Contact" },
+    user
+      ? { href: profile?.role === "admin" ? "/admin" : "/dashboard", label: profile?.role === "admin" ? "Admin" : "My bookings" }
+      : { href: "/login", label: "Log in" },
+  ];
 
   return (
     <HeaderScroll transparent={transparent}>
@@ -49,7 +61,7 @@ export default async function SiteHeader({ transparent = false }) {
             </>
           ) : (
             <>
-              <Link href="/login" className="font-mono text-[0.68rem] uppercase tracking-[0.16em] header-links">
+              <Link href="/login" className="hidden md:inline font-mono text-[0.68rem] uppercase tracking-[0.16em] header-links">
                 Log in
               </Link>
               <Link href="/#services" className="btn-amber !py-2 !px-3.5 text-xs">
@@ -57,6 +69,7 @@ export default async function SiteHeader({ transparent = false }) {
               </Link>
             </>
           )}
+          <MobileNav links={mobileLinks} />
         </div>
       </div>
     </HeaderScroll>
