@@ -6,98 +6,93 @@ import CTABand from "@/components/CTABand";
 import Img from "@/components/Img";
 import { createClient } from "@/lib/supabase/server";
 import { portfolioModel } from "@/models/portfolioModel";
-import { PORTFOLIO_CATEGORIES } from "@/lib/constants";
+import { PORTFOLIO_CATEGORIES, SITE } from "@/lib/constants";
 
 export const revalidate = 0;
-export const metadata = { title: "Portfolio — BuildRight" };
+export const metadata = { title: `Service gallery — ${SITE.name}` };
 
 export default async function PortfolioPage({ searchParams }) {
-  const active = PORTFOLIO_CATEGORIES.some((c) => c.key === searchParams?.tab)
+  const active = PORTFOLIO_CATEGORIES.some((category) => category.key === searchParams?.tab)
     ? searchParams.tab
     : "kitchen";
   const supabase = createClient();
   const items = await portfolioModel.listByCategory(supabase, active);
-  const activeLabel = PORTFOLIO_CATEGORIES.find((c) => c.key === active)?.label;
+  const activeLabel = PORTFOLIO_CATEGORIES.find((category) => category.key === active)?.label;
 
   return (
     <>
       <SiteHeader />
       <main>
-        {/* ---------- portfolio hero ---------- */}
         <section className="relative isolate overflow-hidden bg-ink text-paper">
           <div className="absolute inset-0 blueprint-grid opacity-70" />
           <div className="absolute inset-0 grain" />
           <div className="relative mx-auto max-w-6xl px-4 sm:px-6 py-24 sm:py-32">
             <Reveal>
               <div className="dim-line dim-line--tick dim-line--amber max-w-sm">
-                <span>portfolio · as-built</span>
+                <span>service gallery</span>
               </div>
               <h1 className="mt-5 hero-headline text-5xl sm:text-7xl md:text-8xl max-w-3xl">
-                Work we'll put <br /><span className="text-amber">our name on.</span>
+                See the work types <br /><span className="text-amber">K2 can handle.</span>
               </h1>
-              <p className="mt-6 max-w-xl text-paper/70 text-lg">
-                Every photo below is a real job, shot after client sign-off. Filter by room.
+              <p className="mt-6 max-w-2xl text-paper/70 text-lg">
+                Images are representative examples unless a verified K2 project photo has
+                been uploaded through the admin panel.
               </p>
             </Reveal>
           </div>
         </section>
 
-        {/* ---------- tabs ---------- */}
         <section className="bg-paper border-b border-line sticky top-16 z-30">
           <nav
             className="mx-auto max-w-6xl px-4 sm:px-6 py-4 flex flex-wrap items-center justify-center gap-2"
-            aria-label="Portfolio categories"
+            aria-label="Gallery categories"
           >
-            {PORTFOLIO_CATEGORIES.map((c) => (
+            {PORTFOLIO_CATEGORIES.map((category) => (
               <Link
-                key={c.key}
-                href={`/portfolio?tab=${c.key}`}
-                aria-current={active === c.key ? "page" : undefined}
+                key={category.key}
+                href={`/portfolio?tab=${category.key}`}
+                aria-current={active === category.key ? "page" : undefined}
                 className={`font-mono text-[0.7rem] uppercase tracking-[0.18em] px-4 py-2 border transition-colors ${
-                  active === c.key
+                  active === category.key
                     ? "bg-ink text-paper border-ink"
                     : "border-line text-ink-soft hover:border-ink hover:text-ink"
                 }`}
               >
-                {c.label}
+                {category.label}
               </Link>
             ))}
           </nav>
         </section>
 
-        {/* ---------- grid ---------- */}
         <section className="mx-auto max-w-6xl px-4 sm:px-6 py-16 min-h-[50vh]">
           {items.length === 0 ? (
             <p className="text-center text-ink-soft py-16">
-              No projects in this category yet — check back soon.
+              No gallery images in this category yet.
             </p>
           ) : (
             <>
               <div className="flex items-baseline justify-between mb-10">
                 <p className="font-display font-black text-2xl">{activeLabel}</p>
                 <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft">
-                  {items.length} projects
+                  {items.length} images
                 </p>
               </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {items.map((p, i) => (
-                  <Reveal key={p.id} delay={((i % 3) + 1)}>
+                {items.map((item, index) => (
+                  <Reveal key={item.id} delay={((index % 3) + 1)}>
                     <figure className="group card overflow-hidden zoom-img tilt h-full">
                       <div className="relative overflow-hidden">
                         <Img
-                          src={p.image_url}
-                          alt={p.title}
+                          src={item.image_url}
+                          alt={`${activeLabel} service example`}
                           className="w-full h-72 object-cover"
                         />
                         <span className="absolute top-3 left-3 font-mono text-[0.6rem] uppercase tracking-[0.2em] bg-ink/85 text-amber px-2 py-1">
-                          #{String(i + 1).padStart(2, "0")}
+                          representative image · #{String(index + 1).padStart(2, "0")}
                         </span>
                       </div>
                       <figcaption className="p-5">
-                        <span className="font-display font-bold">{p.title}</span>
-                        {p.description && (
-                          <p className="mt-1.5 text-sm text-ink-soft leading-relaxed">{p.description}</p>
-                        )}
+                        <span className="font-display font-bold">{activeLabel} service example</span>
                       </figcaption>
                     </figure>
                   </Reveal>
@@ -109,10 +104,10 @@ export default async function PortfolioPage({ searchParams }) {
 
         <CTABand
           poster="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2000&q=80"
-          eyebrow="your project next"
-          title={<>Yours could be <span className="text-amber">on this page</span> next quarter.</>}
-          subtitle="Book a visit and we'll add your finished job to the portfolio — with your permission, of course."
-          primaryLabel="Start your project"
+          eyebrow="free estimates"
+          title={<>Have a project in mind? <span className="text-amber">Tell K2 about it.</span></>}
+          subtitle="Send the scope, location, and preferred timing to request an estimate."
+          primaryLabel="Request an estimate"
           secondaryHref="/#services"
           secondaryLabel="See services"
         />

@@ -13,12 +13,15 @@ export default async function SiteHeader({ transparent = false }) {
 
   const mobileLinks = [
     { href: "/#services", label: "Services" },
-    { href: "/portfolio", label: "Portfolio" },
+    { href: "/portfolio", label: "Gallery" },
     { href: "/#process", label: "Process" },
-    { href: "/#reviews", label: "Reviews" },
+    { href: "/#service-area", label: "Service area" },
     { href: "/#contact", label: "Contact" },
     user
-      ? { href: profile?.role === "admin" ? "/admin" : "/dashboard", label: profile?.role === "admin" ? "Admin" : "My bookings" }
+      ? {
+          href: profile?.role === "admin" ? "/admin" : "/dashboard",
+          label: profile?.role === "admin" ? "Admin" : "My bookings",
+        }
       : { href: "/login", label: "Log in" },
   ];
 
@@ -32,15 +35,15 @@ export default async function SiteHeader({ transparent = false }) {
             className="w-9 h-9 object-contain shrink-0"
           />
           <span className="font-display font-extrabold tracking-tight text-lg">
-            {SITE.name}
+            {SITE.shortName}
           </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 font-mono text-[0.7rem] uppercase tracking-[0.18em] header-links">
           <Link href="/#services" className="underline-sweep">Services</Link>
-          <Link href="/portfolio" className="underline-sweep">Portfolio</Link>
+          <Link href="/portfolio" className="underline-sweep">Gallery</Link>
           <Link href="/#process" className="underline-sweep">Process</Link>
-          <Link href="/#reviews" className="underline-sweep">Reviews</Link>
+          <Link href="/#service-area" className="underline-sweep">Service area</Link>
           <Link href="/#contact" className="underline-sweep">Contact</Link>
         </nav>
 
@@ -61,11 +64,14 @@ export default async function SiteHeader({ transparent = false }) {
             </>
           ) : (
             <>
-              <Link href="/login" className="hidden md:inline font-mono text-[0.68rem] uppercase tracking-[0.16em] header-links">
+              <Link
+                href="/login"
+                className="hidden md:inline font-mono text-[0.68rem] uppercase tracking-[0.16em] header-links"
+              >
                 Log in
               </Link>
               <Link href="/#services" className="btn-amber !py-2 !px-3.5 text-xs">
-                Book a visit
+                Free estimate
               </Link>
             </>
           )}

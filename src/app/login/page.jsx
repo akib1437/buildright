@@ -1,8 +1,9 @@
 import Link from "next/link";
 import AuthShell from "@/components/AuthShell";
 import { LoginForm } from "@/components/AuthForms";
+import { SITE } from "@/lib/constants";
 
-export const metadata = { title: "Log in — BuildRight" };
+export const metadata = { title: `Log in — ${SITE.name}` };
 
 export default function LoginPage({ searchParams }) {
   return (
@@ -11,7 +12,10 @@ export default function LoginPage({ searchParams }) {
       title="Welcome back"
       footer={
         <>
-          New here? <Link href="/signup" className="text-blueprint underline">Create a customer account</Link>
+          New here?{" "}
+          <Link href="/signup" className="text-blueprint underline">
+            Create a customer account
+          </Link>
         </>
       }
     >
